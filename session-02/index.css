@@ -1,0 +1,12 @@
+h1{
+    color: goldenrod;
+    text-decoration: underline 3px greenyellow;
+    text-shadow: -3px -3px 2px black;
+    font-size: 32px;
+    border-top: 5px solid rgb(99, 141, 141);
+    border-radius: 25px;
+    padding: 10px;
+    transition-property: border;
+    transition-duration: 0.1s;
+    transi
+}
