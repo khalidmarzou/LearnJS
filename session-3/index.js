@@ -56,4 +56,7 @@ document.write("<h1>Test</h1>")
     console.log(st)
     console.log(cst)
 
-// 
+//  object.assign(a,b)
+// [...[]]  {...{}}
+
+    
