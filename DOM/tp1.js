@@ -10,7 +10,11 @@ if (inputResult.value > 20) {
 } else {
   inputResult.style.backgroundColor = "red";
 }
-inputResult.style.color = "white"
-inputResult.style.fontStyle = "italic"
-inputResult.style.textAlign = "center"
-document.querySelector(input).style.textAlign = "center"
+inputResult.style.color = "white";
+inputResult.style.fontStyle = "italic";
+inputResult.style.textAlign = "center";
+
+let c = document.body;
+
+console.log(document.body);
+console.log(document.head);
