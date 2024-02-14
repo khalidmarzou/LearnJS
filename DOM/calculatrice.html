@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculatrice</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .calculatrice {
+        width: 250px;
+        border: 2px solid black;
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px black;
+      }
+      .calculatrice h1 {
+        height: 60px;
+        border-bottom: 2px solid;
+        text-align: center;
+        line-height: 60px;
+        padding: 0;
+        margin: 0;
+        background-color: rgba(188, 143, 143, 0.279);
+      }
+      .calculatrice > .operations {
+        height: 60px;
+        border-bottom: 2px solid;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: rgb(172, 228, 209);
+      }
+      .calculatrice button {
+        height: 80%;
+        width: 20%;
+        font-size: 30px;
+      }
+      .calculatrice .numbers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+      .calculatrice .numbers button {
+        width: 30%;
+        margin: 4px;
+      }
+      .calculatrice .numbers :last-child {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculatrice">
+      <h1></h1>
+      <div class="operations">
+        <button>+</button><button>-</button><button>/</button>
+        <button>*</button>
+      </div>
+      <div class="numbers">
+        <button>1</button><button>2</button><button>3</button> <button>4</button
+        ><button>5</button><button>6</button><button>7</button>
+        <button>8</button><button>9</button><button>0</button> <button>.</button
+        ><button id="equal">=</button><button id="ce">CE</button>
+      </div>
+    </div>
+
+    <script>
+      let vClickBtn = document.getElementsByTagName("button");
+      let affichage = document.querySelector(".calculatrice > h1");
+      for (let i = 0; i < vClickBtn.length; i++) {
+        vClickBtn[i].addEventListener("click", (e) => {
+          e.preventDefault();
+          if (vClickBtn[i].textContent === "=") {
+            changeToOperation();
+          } else if (vClickBtn[i].textContent === "CE") {
+            clearAffichage();
+          } else {
+            affichage.textContent += vClickBtn[i].textContent;
+          }
+        });
+      }
+      function changeToOperation() {
+        affichage.textContent = eval(affichage.textContent);
+      }
+      function clearAffichage() {
+        affichage.textContent = "";
+      }
+    </script>
+  </body>
+</html>
