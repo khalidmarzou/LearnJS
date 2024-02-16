@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creation des Elements DOM</title>
+    <style>
+      .session-1 {
+        border: 1px solid;
+      }
+      body button:nth-of-type(2) {
+        margin-top: 10px;
+      }
+      body h1:first-of-type {
+        background-color: yellow;
+      }
+      .old {
+        background-color: brown;
+        margin: 10px;
+      }
+      .new {
+        background-color: rosybrown;
+        margin: 10px;
+      }
+      body > button:last-of-type {
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="session-1">
+      <h3>title01</h3>
+      <h3>title02</h3>
+      <h3>title03</h3>
+      <span>Span</span>
+    </div>
+    <button class="creer-titre">Creer Titre</button>
+    <button>Supprimer Element</button>
+    <h1>Titre pour supprimer</h1>
+    <div>
+      <div class="old">Old</div>
+      <button class="replace">Remplacer</button>
+      <div class="new">New</div>
+    </div>
+    <script src="createElement.js"></script>
+  </body>
+</html>
