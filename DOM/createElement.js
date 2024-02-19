@@ -24,8 +24,8 @@ document.querySelector(".creer-titre").addEventListener("click", (e) => {
   paragraph.style.backgroundColor = "yellow";
   titre.style.backgroundColor = "rosybrown";
   titre.style.color = "black";
-  parent.append(titre); // c est pour creer on last child
-  parent.prepend(paragraph); // c est pour creer on first child
+  parent.append(titre); // c'est pour creer on last child
+  parent.prepend(paragraph); // c'est pour creer on first child
 });
 document.querySelector("body h1:first-of-type").style.textAlign = "center";
 document.querySelector("button:first-of-type").textContent = "Create";
@@ -41,8 +41,8 @@ document
   .querySelector(".session-1")
   .removeChild(document.querySelector(".session-1 h3:nth-of-type(2)"));
 // remove the child from parent , on select parent.removeChild(child)
-// pour remplacer deux element :
 
+// pour remplacer deux element :
 document
   .querySelector("body > div:last-of-type .replace")
   .addEventListener("click", function (e) {
@@ -52,4 +52,4 @@ document
     document.querySelector("body > div:last-of-type").replaceChild(neww, oldd);
   });
 // element.setAtrribute("attr","value") change value of attribut
-// element.listClass("name class") add class
+// element.listClass("name class") add class 'classList.add('name of class')' classList.remove('class name')
