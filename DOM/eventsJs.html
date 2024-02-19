@@ -74,7 +74,12 @@
           vInputs[i].value = "";
         }
       });
+      let count = 0;
       btnDisplay.addEventListener("click", (e) => {
+        if (personnes.length === 0) {
+          alert("You don't enter any values.");
+          return;
+        }
         let table = document.createElement("table");
         table.style.boxShadow = "3px 3px 3px black";
         table.style.marginTop = "20px";
@@ -108,6 +113,10 @@
           }
           table.append(tr);
         }
+        count++;
+        let title = document.createElement("h1");
+        title.innerHTML = "Liste : " + count;
+        document.body.append(title);
         document.body.append(table);
         personnes = [];
       });
