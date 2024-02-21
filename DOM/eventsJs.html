@@ -19,10 +19,12 @@
         flex-direction: column;
         align-items: center;
         border-radius: 10px;
+        position: sticky;
+        top: 0;
+        background-color: rgba(188, 143, 143, 0.521);
       }
       .form form {
         width: 100%;
-
         margin-bottom: 10px;
         display: flex;
         justify-content: space-between;
@@ -49,13 +51,14 @@
       <div class="buttons">
         <button>Ajouter</button>
         <button>Afficher</button>
+        <button>Supprimer</button>
       </div>
     </div>
-
     <script>
       let vInputs = document.getElementsByTagName("input");
       let btnAdd = document.querySelector("button:nth-of-type(1)");
       let btnDisplay = document.querySelector("button:nth-of-type(2)");
+      let btnDel = document.querySelector("button:last-of-type");
       let personnes = [];
       let personne = {
         nom: "",
@@ -69,7 +72,6 @@
           age: vInputs[2].value,
         };
         personnes.push(personne);
-        console.log(personnes);
         for (i = 0; i <= 2; i++) {
           vInputs[i].value = "";
         }
@@ -119,6 +121,23 @@
         document.body.append(title);
         document.body.append(table);
         personnes = [];
+      });
+
+      btnDel.addEventListener("click", () => {
+        let tables = document.getElementsByTagName("table");
+        if (tables.length === 0) {
+          return alert("You don't have tables in your documents");
+        }
+        let lastTr = document.querySelector(
+          "table:last-of-type > tr:last-of-type"
+        );
+        let lastTable = document.querySelector("table:last-of-type");
+        lastTr.remove();
+        if (lastTable.firstElementChild === null) {
+          lastTable.previousElementSibling.remove();
+          lastTable.remove();
+          count = 0;
+        }
       });
     </script>
   </body>

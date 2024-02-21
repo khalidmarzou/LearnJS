@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events Js mouse</title>
+    <style>
+      .success {
+        background-color: forestgreen;
+        width: 100px;
+        height: 30px;
+      }
+      div:first-of-type {
+        background-color: rosybrown;
+        height: 200px;
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pos"></div>
+    <p id="affichage"></p>
+    <!--Utilisation les evenements dans des attribut en html-->
+    <button id="clickMe">Click me</button>
+    <button id="save">save</button>
+    <script>
+      function greeting() {
+        return console.log("Hello Js World !!");
+      }
+      let save = document.getElementById("save");
+      let clickBtn = document.getElementById("clickMe");
+      save.addEventListener("click", greeting);
+      save.onclick = greeting;
+      // we can write the function direct without name
+      // in the html we add () to the function
+      let count = 0;
+      function choiseColeur() {
+        count++;
+        clickBtn.style.backgroundColor = "yellow";
+        console.log(count);
+        if (count >= 3) {
+          save.removeEventListener("mouseover", choiseColeur);
+        }
+      }
+      save.addEventListener("mouseover", choiseColeur);
+      save.addEventListener("mouseout", () => {
+        clickBtn.style.backgroundColor = "gray";
+      });
+      clickBtn.addEventListener("mousedown", () => {
+        console.log("down");
+        save.style.backgroundColor = "rosybrown";
+      });
+      clickBtn.addEventListener("mouseup", () => {
+        console.log("Up");
+        save.style.backgroundColor = "aqua";
+      });
+      clickBtn.addEventListener("click", () => {
+        console.log("click");
+        save.style.backgroundColor = "red";
+      });
+      clickBtn.addEventListener("dblclick", () => {
+        console.log("double Click");
+      });
+    </script>
+  </body>
+</html>

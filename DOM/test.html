@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="ull">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+    <script>
+      let parent = document.getElementById("ull");
+      let liS = parent.children;
+      console.log(liS);
+      let ln = liS.length;
+      for (let i = ln - 1; i > 0; i--) {
+        liS[i].remove();
+      }
+    </script>
+  </body>
+</html>
