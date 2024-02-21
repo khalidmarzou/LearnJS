@@ -44,7 +44,7 @@
       </form>
       <form action="">
         <label for="age">Age : </label>
-        <input type="number" name="age" />
+        <input type="number" name="age" max="100" min="10" step="2" />
       </form>
       <div class="buttons">
         <button>Ajouter</button>
@@ -75,7 +75,7 @@
         }
       });
       let count = 0;
-      btnDisplay.addEventListener("click", (e) => {
+      btnDisplay.addEventListener("click", () => {
         if (personnes.length === 0) {
           alert("You don't enter any values.");
           return;
