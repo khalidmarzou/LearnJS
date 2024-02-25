@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>getBoundingClientRect()</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      #targetDiv {
+        background-color: rosybrown;
+        width: 200px;
+        height: 100px;
+        transform: translate(10px, 100px);
+      }
+      #targetDiv:hover {
+      }
+    </style>
+  </head>
+  <body>
+    <div id="targetDiv"></div>
+    <script>
+      const targetDiv = document.getElementById("targetDiv");
+      const targetRect = targetDiv.getBoundingClientRect();
+      let checkInterval = setInterval(() => {
+        console.log(`top = ${targetRect.top}`);
+        console.log(`bottom = ${targetRect.bottom}`);
+        console.log(`left = ${targetRect.left}`);
+        console.log(`right = ${targetRect.right}`);
+        console.log(`X = ${targetRect.x}`);
+        console.log(`Y = ${targetRect.y}`);
+        console.log(`width = ${targetRect.width}`);
+        console.log(`height = ${targetRect.height}`);
+        console.log(`typeof = ${typeof targetRect.width}`);
+      }, 5000);
+    </script>
+  </body>
+</html>

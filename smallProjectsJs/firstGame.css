@@ -19,6 +19,3 @@ body > div > div:first-of-type {
   animation-fill-mode: forwards;
   opacity: 0;
 }
-body > div > div:nth-of-type(2) {
-  
-}

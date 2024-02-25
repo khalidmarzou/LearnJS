@@ -36,11 +36,13 @@ let checkInterval = setInterval(() => {
     firstBg = lastBg;
   }
   firstChild.style.left = getRandomLeft();
+  checkInterval2Function();
 }, 2000); // setInerval call a function evry 2s in this case
 
 let listStr;
 let valueStr;
-document.addEventListener("keydown", (event) => {
+let secondChildRect = secondChild.getBoundingClientRect();
+document.addEventListener("keyup", (event) => {
   if (secondChild.style.left === "") {
     listStr = "00%";
   }
@@ -48,9 +50,9 @@ document.addEventListener("keydown", (event) => {
     if (listStr === "75%") {
       return;
     }
+    secondChildRect.x += secondChildRect.width;
     valueStr = listStr[0] + listStr[1];
-    valueStr++;
-    valueStr--;
+    valueStr = Number(valueStr);
     valueStr += 25;
     valueStr += "%";
     listStr = valueStr;
@@ -59,9 +61,9 @@ document.addEventListener("keydown", (event) => {
     if (listStr === "00%") {
       return;
     }
+    secondChildRect.x -= secondChildRect.width;
     valueStr = listStr[0] + listStr[1];
-    valueStr++;
-    valueStr--;
+    valueStr = Number(valueStr);
     valueStr -= 25;
     if (valueStr === 0) {
       valueStr += "0%";
@@ -74,3 +76,15 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+let point = 0;
+function checkInterval2Function() {
+  let checkIntervel2 = setInterval(() => {
+    let firstChildRect = firstChild.getBoundingClientRect();
+    let points = document.getElementById("points");
+    if (secondChildRect.x === firstChildRect.x && firstChildRect.y > 310) {
+      point++;
+      points.innerHTML = point + " Points";
+      clearInterval(checkIntervel2);
+    }
+  }, 100);
+}
