@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <title>Key : Down Press Up</title>
+  </head>
+  <body class="d-flex flex-column align-items-center pt-5 vh-100">
+    <h1 class="mb-5 modal-title fst-italic fw-bolder">Sign Up</h1>
+    <form
+      action=""
+      class="card p-2 d-flex w-50 h-75 justify-content-evenly align-items-center"
+    >
+      <label for="UserName" class="form-label w-100">User Name :</label>
+      <input id="UserName" type="text" class="form-control border" />
+      <span id="spanUser" class="d-none fs-6 fst-italic text-center text-danger"
+        >Username must be between 3 and 25 characters</span
+      >
+      <label for="Email" class="form-label w-100">E-mail :</label>
+      <input id="Email" type="email" class="form-control border" />
+      <span id="spanEmail" class="fs-6 fst-italic text-danger"></span>
+      <label for="Password" class="form-label w-100">Password :</label>
+      <input id="Password" type="password" class="form-control" />
+      <button href="#" id="btnSend" class="btn btn-primary w-75 m-3">
+        <i class="bi bi-send-arrow-up-fill"></i>Envoyer
+      </button>
+    </form>
+    <script src="keyDownUpPress.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </body>
+</html>
