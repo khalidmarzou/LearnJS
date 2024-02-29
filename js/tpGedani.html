@@ -9,28 +9,25 @@
   <body class="vh-100 d-flex align-items-center justify-content-center">
     <form
       name="infoStagiare"
-      class="form w-50 d-flex flex-column align-items-center border border-2 rounded-5 border-primary"
+      class="form w-50 d-flex flex-column align-items-center border border-2 rounded-1 border-primary"
     >
       <label for="name" class="form-label w-75 mt-2"
         >Enter Your Full-Name :
       </label>
-      <input type="text" name="name" class="form-control w-75" />
-      <label for="email" class="form-label w-75 mt-4">Enter Your Email :</label>
-      <input
-        type="email"
-        name="email"
-        class="form-control w-75"
-        autocomplete="username"
-      />
+      <input id="name" type="text" name="name" class="form-control w-75" />
+      <label for="cine" class="form-label w-75 mt-4">Enter Your CINE :</label>
+      <input id="cine" type="text" name="cine" class="form-control w-75" />
       <label
-        for="password"
+        for="Grade"
         class="mt-4 form-label w-75 d-flex justify-content-between"
-        >Enter Your Password : <span id="statusPass"></span> </label
+        >Grade : </label
       ><input
-        type="password"
-        name="password"
+        max="20"
+        min="1"
+        id="grade"
+        type="number"
+        name="grade"
         class="w-75 form-control"
-        autocomplete="current-password"
       /><label for="branche" class="form-label w-75 mt-4"
         >Select Your Branch :
       </label>
@@ -38,14 +35,11 @@
         <option value="dev">Dev</option>
         <option value="info">Info</option>
       </select>
-      <label for="module" class="form-label w-75 mt-4"
-        >Select Your Module :</label
-      >
+      <label for="module" class="form-label w-75 mt-4">Select Module :</label>
       <select name="module" id="module" class="form-select w-75">
-        <option value="algo">algo</option>
-        <option value="html">html</option>
-        ++
-        <option value="db">database</option>
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
       </select>
       <input
         id="submitBtn"
@@ -54,54 +48,103 @@
         class="btn btn-primary w-50 my-3"
       />
     </form>
+    <div class="buttons d-flex flex-column gap-2 position-fixed end-0">
+      <button id="restBtn" class="me-2 btn btn-danger">Rest</button>
+      <button id="editBtn" class="me-2 btn btn-warning">Edit</button>
+      <button id="searchBtn" class="me-2 btn btn-success">Search</button>
+    </div>
+    <div
+      class="position-fixed text-bg-info top-0 end-0 rounded-circle d-flex justify-content-center align-items-center fs-1 fw-bolder m-1 border border-3 border-primary"
+      style="height: 100px; width: 100px"
+      id="numberS"
+    >
+      00
+    </div>
     <script>
-      // change the value of second select if user select another branch:
       function id(id) {
         return document.getElementById(id);
       }
-      let modules = id("module");
+      let nameS = id("name");
+      let cine = id("cine");
+      let note = id("grade");
       let branche = id("branche");
-      let newModules = ["reseaux", "cmd", "infographie"];
-      branche.addEventListener("focusout", (e) => {
+      let module = id("module");
+      // buttons :
+      let btnSubmit = id("submitBtn");
+      let btnRest = id("restBtn");
+      let btnEdit = id("editBtn");
+      let btnSearch = id("searchBtn");
+      let numberS = id("numberS");
+
+      nameS.addEventListener("focusout", (e) => {
         e.preventDefault();
-        if (branche.value === "info") {
-          for (let i = 0; i < modules.children.length; i++) {
-            modules.children[i].value = newModules[i];
-            modules.children[i].text = newModules[i];
+        if (nameS.value.length < 3) {
+          nameS.classList.add("border-danger");
+        } else {
+          nameS.setAttribute("class", "form-control w-75 border-success");
+        }
+      });
+      cine.addEventListener("focusout", (e) => {
+        e.preventDefault();
+        if (cine.value.length < 3) {
+          cine.classList.add("border-danger");
+        } else {
+          cine.setAttribute("class", "form-control w-75 border-success");
+        }
+      });
+      note.addEventListener("focusout", (e) => {
+        e.preventDefault();
+        if (note.value === "") {
+          note.classList.add("border-danger");
+        } else {
+          note.setAttribute("class", "form-control w-75 border-success");
+        }
+      });
+      branche.addEventListener("focusout", (e) => {
+        let modulesDev = ["HTML5", "CSS3", "PYTHON"];
+        let modulesInfo = ["LINUX", "KALI", "POWERSHELL"];
+        if (branche.value === "dev") {
+          for (let i = 0; i < module.children.length; i++) {
+            module.children[i].value = modulesDev[i];
+            module.children[i].text = modulesDev[i];
+          }
+        } else {
+          for (let i = 0; i < module.children.length; i++) {
+            module.children[i].value = modulesInfo[i];
+            module.children[i].text = modulesInfo[i];
           }
         }
       });
-      let nameInput = document.forms["infoStagiare"]["name"];
-      let emailInput = document.forms["infoStagiare"]["email"];
-      nameInput.addEventListener("focusout", () => {
-        if (nameInput.value.length < 3) {
-          console.log(nameInput.value);
-          nameInput.classList.add("border-danger");
-          nameInput.classList.add("border");
-          nameInput.classList.add("border-3");
-        } else {
-          nameInput.setAttribute("class", "form-control w-75");
-        }
-      });
-      class stagiaire {
-        constructor(fullName, email, branche, module) {
-          this.fullName = fullName;
-          this.email = email;
-          this.branche = branche;
-          this.module = module;
-        }
-      }
-      let Stagiaires = [];
-      let btnSubmit = document.getElementById("submitBtn");
       btnSubmit.addEventListener("click", (e) => {
         e.preventDefault();
-        let etudiant = new stagiaire();
-        etudiant.fullName = nameInput.value;
-        etudiant.email = emailInput.value;
-        etudiant.branche = branche.value;
-        etudiant.module = modules.value;
-        Stagiaires.push(etudiant);
-        console.log(Stagiaires);
+        if (nameS.value.length < 3) {
+          nameS.classList.add("border-danger");
+        } else {
+          nameS.setAttribute("class", "form-control w-75 border-success");
+        }
+        if (cine.value.length < 3) {
+          cine.classList.add("border-danger");
+        } else {
+          cine.setAttribute("class", "form-control w-75 border-success");
+        }
+        if (note.value === "") {
+          note.classList.add("border-danger");
+        } else {
+          note.setAttribute("class", "form-control w-75 border-success");
+        }
+        if (module.children[1].value === "") {
+          module.classList.add("border-danger");
+        } else {
+          module.classList.remove("border-danger");
+          module.classList.add("border-success");
+          branche.classList.add("border-success");
+        }
+      });
+      btnRest.addEventListener("click", (e) => {
+        e.preventDefault();
+        nameS.value = "";
+        cine.value = "";
+        note.value = "";
       });
     </script>
   </body>
