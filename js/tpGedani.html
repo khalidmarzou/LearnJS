@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../bootstrap.min.css" />
+    <title>Gestion Stagiaires</title>
+  </head>
+  <body class="vh-100 d-flex align-items-center justify-content-center">
+    <form
+      name="infoStagiare"
+      method="post"
+      class="form w-50 d-flex flex-column align-items-center border border-2 rounded-5 border-primary"
+    >
+      <label for="name" class="form-label w-75 mt-2"
+        >Enter Your Full-Name :
+      </label>
+      <input type="text" name="name" class="form-control w-75" />
+      <label for="email" class="form-label w-75 mt-4">Enter Your Email :</label>
+      <input
+        type="email"
+        name="email"
+        class="form-control w-75"
+        autocomplete="username"
+      />
+      <label
+        for="password"
+        class="mt-4 form-label w-75 d-flex justify-content-between"
+        >Enter Your Password : <span id="statusPass"></span> </label
+      ><input
+        type="password"
+        name="password"
+        class="w-75 form-control"
+        autocomplete="current-password"
+      /><label for="branche" class="form-label w-75 mt-4"
+        >Select Your Branch :
+      </label>
+      <select name="branche" id="branche" class="form-select w-75">
+        <option value="dev">Dev</option>
+        <option value="info">Info</option>
+      </select>
+      <label for="module" class="form-label w-75 mt-4"
+        >Select Your Module :</label
+      >
+      <select name="module" id="module" class="form-select w-75">
+        <option value="algo">algo</option>
+        <option value="html">html</option>
+        ++
+        <option value="db">database</option>
+      </select>
+      <input
+        id="submitBtn"
+        type="submit"
+        value="Submit"
+        class="btn btn-primary w-50 my-3"
+      />
+    </form>
+    <script>
+      // change the value of second select if user select another branch:
+      function id(id) {
+        return document.getElementById(id);
+      }
+      let modules = id("module");
+      let branche = id("branche");
+      let newModules = ["reseaux", "cmd", "infographie"];
+      branche.addEventListener("focusout", (e) => {
+        e.preventDefault();
+        if (branche.value === "info") {
+          for (let i = 0; i < modules.children.length; i++) {
+            modules.children[i].value = newModules[i];
+            modules.children[i].text = newModules[i];
+          }
+        }
+      });
+      let nameInput = document.forms["infoStagiare"]["name"];
+      nameInput.addEventListener("focusout", () => {
+        if (nameInput.value.length < 3) {
+          console.log(nameInput.value);
+          nameInput.classList.add("border-danger");
+          nameInput.classList.add("border");
+          nameInput.classList.add("border-3");
+        } else {
+          nameInput.setAttribute("class", "form-control w-75");
+        }
+      });
+    </script>
+  </body>
+</html>
