@@ -292,6 +292,9 @@
               "This Stagiaire is already in DataBase You can Use Search Button";
             openCustomAlert();
           }
+        } else {
+          textAlert.textContent = "Complete the Full Form !!";
+          openCustomAlert();
         }
         if (nameS.value.length < 3) {
           nameS.classList.add("border-danger");
@@ -335,10 +338,39 @@
         if (cineChecked === undefined) {
           textAlert.textContent = "We don't have any stagiaire with this CINE";
         } else {
-          textAlert.textContent = cineChecked;
-          console.log(cineChecked);
+          let br = document.createElement("br");
+          let txt =
+            cineChecked.FullName +
+            " || " +
+            cineChecked.Cine +
+            " || " +
+            cineChecked.Branch;
+          textAlert.textContent = txt;
         }
         openCustomAlert();
+      });
+      textbox.addEventListener("keydown", (e) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          searchCine = textbox.value;
+          barSearch.style.display = "none";
+          textbox.value = "";
+          let cineChecked = checkCine(Stagiaires, "Cine", searchCine);
+          if (cineChecked === undefined) {
+            textAlert.textContent =
+              "We don't have any stagiaire with this CINE";
+          } else {
+            let br = document.createElement("br");
+            let txt =
+              cineChecked.FullName +
+              " || " +
+              cineChecked.Cine +
+              " || " +
+              cineChecked.Branch;
+            textAlert.textContent = txt;
+          }
+          openCustomAlert();
+        }
       });
     </script>
   </body>
