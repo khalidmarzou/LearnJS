@@ -5,6 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../bootstrap.min.css" />
     <title>Gestion Stagiaires</title>
+    <style>
+      .search-bar {
+        margin: 0;
+        padding: 0;
+        height: 50px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        left: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        border: 5px black solid;
+        transition-duration: 0.2s;
+      }
+
+      .textbox {
+        width: 0px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        line-height: 40px;
+        font-size: 25px;
+        height: 45px;
+        background-color: rgba(0, 0, 0, 0.589);
+        outline: none;
+        height: 100%;
+        float: left;
+
+        transition-duration: 0.05s;
+      }
+
+      .search-btn {
+        background-color: transparent;
+        padding: 0px 0px 0px 0px;
+        margin: 0;
+        height: 45px;
+        width: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: right;
+        text-decoration: none;
+        height: 100%;
+        transition-duration: 0.2s;
+      }
+
+      .search-btn p {
+        margin: 10px;
+        color: black;
+        font-size: 20px;
+        font-family: sans-serif;
+        font-weight: 800;
+      }
+
+      .search-bar:hover > .textbox {
+        padding: 0px 10px 0px 10px;
+        width: 100%;
+        transition-duration: 0.2s;
+      }
+
+      .search-bar:hover > .search-btn {
+        border-left: 5px black solid;
+        transition-duration: 0.2s;
+      }
+
+      .search-btn:hover {
+        background-color: black;
+        transition-duration: 0.2s;
+      }
+      .search-btn:hover > p {
+        color: white;
+        transition-duration: 0.2s;
+      }
+
+      .custom-alert {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+      }
+
+      .alert-content {
+        text-align: center;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body class="vh-100 d-flex align-items-center justify-content-center">
     <form
@@ -51,19 +151,48 @@
     <div class="buttons d-flex flex-column gap-2 position-fixed end-0">
       <button id="restBtn" class="me-2 btn btn-danger">Rest</button>
       <button id="editBtn" class="me-2 btn btn-warning">Edit</button>
-      <button id="searchBtn" class="me-2 btn btn-success">Search</button>
+      <button class="me-2 btn btn-success" id="showSearchBar">Search</button>
+    </div>
+    <div class="search-bar" id="barSearch">
+      <input
+        type="text"
+        class="textbox"
+        id="textbox"
+        placeholder="type CINE..."
+      />
+      <a class="search-btn" id="searchBtn" href="#">
+        <p>></p>
+      </a>
     </div>
     <div
-      class="position-fixed text-bg-info top-0 end-0 rounded-circle d-flex justify-content-center align-items-center fs-1 fw-bolder m-1 border border-3 border-primary"
-      style="height: 100px; width: 100px"
+      class="position-fixed text-bg-info top-0 end-0 rounded-circle d-flex justify-content-center align-items-center fw-bolder m-1 border border-3 border-primary"
+      style="height: 100px; width: 100px; font-size: 50px"
       id="numberS"
     >
-      00
+      0
     </div>
+    <div id="customAlert" class="custom-alert">
+      <div class="alert-content">
+        <p id="textAlert">This is a custom alert!</p>
+        <button onclick="closeCustomAlert()">OK</button>
+      </div>
+    </div>
+
     <script>
+      function openCustomAlert() {
+        var customAlert = document.getElementById("customAlert");
+        customAlert.style.display = "block";
+      }
+
+      function closeCustomAlert() {
+        var customAlert = document.getElementById("customAlert");
+        customAlert.style.display = "none";
+      }
+
       function id(id) {
         return document.getElementById(id);
       }
+      let textAlert = id("textAlert");
       let nameS = id("name");
       let cine = id("cine");
       let note = id("grade");
@@ -74,6 +203,9 @@
       let btnRest = id("restBtn");
       let btnEdit = id("editBtn");
       let btnSearch = id("searchBtn");
+      let showSearchBar = id("showSearchBar");
+      let barSearch = id("barSearch");
+
       let numberS = id("numberS");
 
       nameS.addEventListener("focusout", (e) => {
@@ -115,8 +247,52 @@
           }
         }
       });
+      module.addEventListener("focusout", (e) => {
+        if (module.children[1].text !== "") {
+          module.classList.remove("border-danger");
+          module.classList.add("border-success");
+          branche.classList.add("border-success");
+        } else {
+          module.classList.add("border-danger");
+        }
+      });
+      let Stagiaire = {
+        FullName: "",
+        Cine: "",
+        Grade: "",
+        Branch: "",
+      };
+      let Stagiaires = [];
+      let count = 0;
+
+      function checkCine(list, key, value) {
+        return list.find((element) => {
+          return element[key] === value;
+        });
+      }
       btnSubmit.addEventListener("click", (e) => {
         e.preventDefault();
+        if (
+          nameS.value.length > 3 &&
+          cine.value.length > 3 &&
+          note.value != "" &&
+          module.children[1] != ""
+        ) {
+          let cineChecked = checkCine(Stagiaires, "Cine", cine.value);
+          if (cineChecked === undefined) {
+            Stagiaire.FullName = nameS.value;
+            Stagiaire.Cine = cine.value;
+            Stagiaire.Grade = note.value;
+            Stagiaire.Branch = branche.value;
+            Stagiaires.push({ ...Stagiaire });
+            count++;
+            numberS.textContent = count;
+          } else {
+            textAlert.textContent =
+              "This Stagiaire is already in DataBase You can Use Search Button";
+            openCustomAlert();
+          }
+        }
         if (nameS.value.length < 3) {
           nameS.classList.add("border-danger");
         } else {
@@ -132,7 +308,7 @@
         } else {
           note.setAttribute("class", "form-control w-75 border-success");
         }
-        if (module.children[1].value === "") {
+        if (module.children[0].value === "") {
           module.classList.add("border-danger");
         } else {
           module.classList.remove("border-danger");
@@ -145,6 +321,24 @@
         nameS.value = "";
         cine.value = "";
         note.value = "";
+      });
+      let textbox = id("textbox");
+      let searchCine;
+      showSearchBar.addEventListener("click", (e) => {
+        barSearch.style.display = "flex";
+      });
+      btnSearch.addEventListener("click", (e) => {
+        searchCine = textbox.value;
+        barSearch.style.display = "none";
+        textbox.value = "";
+        let cineChecked = checkCine(Stagiaires, "Cine", searchCine);
+        if (cineChecked === undefined) {
+          textAlert.textContent = "We don't have any stagiaire with this CINE";
+        } else {
+          textAlert.textContent = cineChecked;
+          console.log(cineChecked);
+        }
+        openCustomAlert();
       });
     </script>
   </body>
