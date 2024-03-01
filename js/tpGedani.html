@@ -177,7 +177,12 @@
         <button onclick="closeCustomAlert()">OK</button>
       </div>
     </div>
-
+    <img
+      src="Animation - 1709271737196.gif"
+      id="successImg"
+      style="position: fixed; display: none"
+      alt=""
+    />
     <script>
       function openCustomAlert() {
         var customAlert = document.getElementById("customAlert");
@@ -287,6 +292,10 @@
             Stagiaires.push({ ...Stagiaire });
             count++;
             numberS.textContent = count;
+            successImg.style.display = "block";
+            setTimeout(function () {
+              successImg.style.display = "none";
+            }, 1000);
           } else {
             textAlert.textContent =
               "This Stagiaire is already in DataBase You can Use Search Button";
@@ -372,6 +381,7 @@
           openCustomAlert();
         }
       });
+      let successImg = id("successImg");
     </script>
   </body>
 </html>
