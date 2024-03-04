@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test">
+      TEXT <br />
+      1
+      <span>Text2</span>
+      <ul>
+        <li>Test3</li>
+        <li>Test4</li>
+        <li style="display: none">Text5</li>
+        <li>Test6</li>
+      </ul>
+    </div>
+    <script>
+      let divB = document.getElementById("test");
+      console.log(divB);
+      console.log("innerHTML : ", divB.innerHTML);
+      console.log("innerText : ", divB.innerText);
+      console.log("textContent : ", divB.textContent);
+      divB.innerHTML = "test<span>test</span>";
+      divB.innerText = "test<span>test</span>";
+      divB.textContent = "teeest<br />";
+    </script>
+  </body>
+</html>

@@ -33,7 +33,6 @@
         outline: none;
         height: 100%;
         float: left;
-
         transition-duration: 0.05s;
       }
 
@@ -132,8 +131,8 @@
         >Select Your Branch :
       </label>
       <select name="branche" id="branche" class="form-select w-75">
-        <option value="dev">Dev</option>
-        <option value="info">Info</option>
+        <option value=""></option>
+        <option value=""></option>
       </select>
       <label for="module" class="form-label w-75 mt-4">Select Module :</label>
       <select name="module" id="module" class="form-select w-75">
@@ -212,6 +211,13 @@
       let barSearch = id("barSearch");
 
       let numberS = id("numberS");
+      let branches = ["dev", "info"];
+      document.addEventListener("DOMContentLoaded", () => {
+        for (let i = 0; i < 3; i++) {
+          branche.children[i].value = branches[i];
+          branche.children[i].text = branches[i];
+        }
+      });
 
       nameS.addEventListener("focusout", (e) => {
         e.preventDefault();
@@ -237,20 +243,24 @@
           note.setAttribute("class", "form-control w-75 border-success");
         }
       });
-      branche.addEventListener("focusout", (e) => {
-        let modulesDev = ["HTML5", "CSS3", "PYTHON"];
-        let modulesInfo = ["LINUX", "KALI", "POWERSHELL"];
-        if (branche.value === "dev") {
-          for (let i = 0; i < module.children.length; i++) {
-            module.children[i].value = modulesDev[i];
-            module.children[i].text = modulesDev[i];
+      let listEvents = ["focusover", "change"];
+      listEvents.forEach((element) => {
+        branche.addEventListener(element, () => {
+          let modulesDev = ["HTML5", "CSS3", "PYTHON"];
+          let modulesInfo = ["LINUX", "KALI", "POWERSHELL"];
+          console.log(branche.value);
+          if (branche.value === "dev") {
+            for (let i = 0; i < module.children.length; i++) {
+              module.children[i].value = modulesDev[i];
+              module.children[i].text = modulesDev[i];
+            }
+          } else {
+            for (let i = 0; i < module.children.length; i++) {
+              module.children[i].value = modulesInfo[i];
+              module.children[i].text = modulesInfo[i];
+            }
           }
-        } else {
-          for (let i = 0; i < module.children.length; i++) {
-            module.children[i].value = modulesInfo[i];
-            module.children[i].text = modulesInfo[i];
-          }
-        }
+        });
       });
       module.addEventListener("focusout", (e) => {
         if (module.children[1].text !== "") {
