@@ -1,41 +1,50 @@
-let ipv4Title = document.querySelector("header > #address > h3:first-of-type");
-let adressDIV = document.getElementById("address");
-let dateTimeDIV = document.getElementById("dateTime");
+// Function to get element by ID
+function getElementById(id) {
+  return document.getElementById(id);
+}
 
-let ipAdd = fetch("https://api.bigdatacloud.net/data/client-ip"); //return ipAdress
-ipAdd
-  .then((ipv4) => {
-    return ipv4.json();
-  })
+// Select elements from the DOM
+let ipv4Title = document.querySelector("header > #address > h3:first-of-type");
+let adressDIV = getElementById("address");
+let dateTimeDIV = getElementById("dateTime");
+
+// Fetch client's IP address
+let ipAdd = fetch("https://api.bigdatacloud.net/data/client-ip")
+  .then((ipv4) => ipv4.json())
   .then((ip) => {
+    // Update IPv4 title with fetched IP address
     ipv4Title.innerHTML += " " + ip.ipString;
-    fetch(`http://ip-api.com/json/${ip.ipString}`) //ipAdress to Location
+
+    // Fetch location details based on IP address
+    fetch(`http://ip-api.com/json/${ip.ipString}`)
+      .then((location) => location.json())
       .then((location) => {
-        return location.json();
-      })
-      .then((location) => {
+        // Create and append country element
         let country = document.createElement("h3");
         country.innerHTML = '<i class="bi bi-geo-alt"></i> ' + location.country;
         adressDIV.append(country);
         return location;
       })
       .then((location) => {
+        // Create and append city element
         let city = document.createElement("h3");
         city.innerHTML = '<i class="bi bi-geo-fill"></i> ' + location.city;
         adressDIV.append(city);
       })
       .catch((error) => {
-        alert("error in the fetch of api location");
+        alert("Error in fetching location details.",error);
       });
   })
   .catch((error) => {
-    alert("error in the fetch of api ip adress");
+    alert("Error in fetching IP address.",error);
   });
 
+// Create element to display date
 let dateHtml = document.createElement("h3");
 
-setInterval(() => {
-  let timeHtml = document.getElementById("timeHtml");
+// Function to update date and time
+function updateTime() {
+  let timeHtml = getElementById("timeHtml");
   let dateTime = new Date();
   let dateTimeString = dateTime.toString();
   let date = dateTimeString.slice(0, 15);
@@ -61,18 +70,18 @@ setInterval(() => {
   } else {
     timeHtml.children[0].innerText = hours;
   }
-}, 100);
+}
 
+// Update date and time every 100 milliseconds
+setInterval(updateTime, 100);
+
+// Fetch news articles and create cards to display them
 let main = document.getElementsByTagName("main")[0];
 fetch(
   "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=9bae2c787edd435bba8f1dee5b77c22d"
 )
-  .then((Response) => {
-    return Response.json();
-  })
-  .then((data) => {
-    return data.articles;
-  })
+  .then((Response) => Response.json())
+  .then((data) => data.articles)
   .then((articles) => {
     articles.forEach((element) => {
       let article = document.createElement("article");
@@ -92,7 +101,7 @@ fetch(
       } else {
         cardImg.setAttribute("src", element.urlToImage);
       }
-      cardImg.style.height = "40%"
+      cardImg.style.height = "40%";
       cardBody.classList.add("card-body");
       cardTitle.innerText = element.title;
       cardTitle.classList.add("card-title");
@@ -108,4 +117,6 @@ fetch(
       article.append(cardBody);
       main.append(article);
     });
+  }).catch((error) => {
+    alert("Error in fetching articles.",error);
   });
