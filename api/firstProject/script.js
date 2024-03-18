@@ -9,7 +9,7 @@ let adressDIV = getElementById("address");
 let dateTimeDIV = getElementById("dateTime");
 
 // Fetch client's IP address
-let ipAdd = fetch("https://api.bigdatacloud.net/data/client-ip")
+fetch("https://api.bigdatacloud.net/data/client-ip")
   .then((ipv4) => ipv4.json())
   .then((ip) => {
     // Update IPv4 title with fetched IP address
@@ -32,11 +32,14 @@ let ipAdd = fetch("https://api.bigdatacloud.net/data/client-ip")
         adressDIV.append(city);
       })
       .catch((error) => {
-        alert("Error in fetching location details.",error);
+        alert("Error in fetching location details.", error);
       });
   })
   .catch((error) => {
-    alert("Error in fetching IP address.",error);
+    alert("Error in fetching IP address.", error);
+  })
+  .finally(() => {
+    return console.log("Finally execute Always, after response and error");
   });
 
 // Create element to display date
@@ -83,7 +86,7 @@ fetch(
   .then((Response) => Response.json())
   .then((data) => data.articles)
   .then((articles) => {
-    articles.forEach((element) => {
+    articles.forEach((element, index) => {
       let article = document.createElement("article");
       let cardTitle = document.createElement("h5");
       let cardText = document.createElement("p");
@@ -117,6 +120,7 @@ fetch(
       article.append(cardBody);
       main.append(article);
     });
-  }).catch((error) => {
-    alert("Error in fetching articles.",error);
+  })
+  .catch((error) => {
+    alert("Error in fetching articles.", error);
   });
