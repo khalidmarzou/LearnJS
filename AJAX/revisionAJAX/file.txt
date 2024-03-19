@@ -1,0 +1,1 @@
+<h2 class='text-center text-warning'>"Like you see, if I load without changing the image, that means the page isn't refreshing."</h2>
