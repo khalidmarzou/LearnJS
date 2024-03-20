@@ -15,3 +15,4 @@ console.log(stagiaireJSON); // file JSON
 // transferer file JSON to an Object :
 stagiaireJSON = JSON.parse(stagiaireJSON);
 console.log(stagiaireJSON);
+
