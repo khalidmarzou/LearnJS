@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX JSON Example</title>
+  </head>
+  <body>
+    <header>
+      <h1>AJAX - JSON Example</h1>
+    </header>
+    <button id="load">Load Data</button>
+    <div id="affichage"></div>
+    <script>
+      function loadData() {
+        const request = new XMLHttpRequest();
+        request.open("GET", "user.json", true);
+        request.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            let data = JSON.parse(this.response);
+            let user = data.user;
+            let content = `<ul><li> Nom : ${user.nom}</li><li> Age : ${user.age}</li></ul>`;
+            document.getElementById("affichage").innerHTML = content;
+          }
+        };
+        request.send();
+      }
+      document.getElementById("load").addEventListener("click", loadData);
+    </script>
+  </body>
+</html>

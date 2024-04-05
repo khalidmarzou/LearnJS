@@ -1,0 +1,1 @@
+// $(selecteur).action() -- selecteur CSS

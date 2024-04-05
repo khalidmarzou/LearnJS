@@ -7,6 +7,7 @@ new RegExp("pattern","modifier(s)")
 /*
 i => case-insensitive
 g => global : all results
+
 m => Multilines
 
 // NB : we can use more than one flag

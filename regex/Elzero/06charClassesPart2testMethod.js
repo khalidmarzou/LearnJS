@@ -13,7 +13,7 @@ let names = "Sayed 1Spam 2Spam 3Spam Spam4 Spam5 Osama Ahmed Aspamo";
 let test = "spam spam spam";
 let re = /spam/gi;
 // console.log(names.match(re));
-// console.log(names.match(/\bspam/gi)); // begining
+console.log(names.match(/\bspam/gi)); // begining
 // console.log(names.match(/spam\b/gi)); // end
 // console.log(names.match(/(\bspam|spam\b)/gi)); // begining and end
 // console.log(test.match(/(\Bspam | spam\B)/gi));

@@ -1,0 +1,8 @@
+{
+  "user": {
+    "id": 3532872585,
+    "nom": "Hettie Ellis",
+    "age": 53,
+    "tasks": ["ajouter", "modifier", "supprimer"]
+  }
+}
